@@ -1,0 +1,93 @@
+/*Merge List
+You are given an array of k linked-lists lists, each linked list is sorted in ascending order.
+Merge all the linked-lists into one sorted linked-list and return it. */
+
+
+import java.io.*;
+class Node
+{
+  int data;
+  Node next;
+  Node(int d)
+  {
+    data = d;
+    next = null;
+  }
+}
+public class MergeList
+{
+  static Node head;
+  static Node temp;
+  static void printList(Node node)
+  {
+    while(node != null)
+    {
+      System.out.print(node.data + "->");
+      node = node.next;
+    }
+    System.out.println();
+  }
+  static Node mergeKLists(Node arr[], int last)
+  {
+    for (int i = 1; i <= last; i++)
+    {
+      while(true)
+      {
+        Node head_first = arr[0];
+        Node head_i = arr[i];
+        if (head_i == null)
+        break;
+        if(head_first.data >= head_i.data)
+        {
+          arr[i] = head_i.next;
+          head_i.next = head_first;
+          arr[0] = head_i;
+        }
+        else
+        {
+          while (head_first.next != null)
+          {
+            if (head_first.next.data >= head_i.data)
+            {
+              arr[i] = head_i.next;
+              head_i.next = head_first.next;
+              head_first.next = head_i;
+              break;
+            }
+            head_first = head_first.next;
+            if (head_first.next == null)
+            {
+              arr[i] = head_i.next;
+              head_i.next = null;
+              head_first.next = head_i;
+              head_first.next.next = null;
+              break;
+            }
+          }
+        }
+      }
+    }
+    return arr[0];
+  }
+  public static void main (String[] args)
+  {
+    int k = 3;
+    int n = 4;
+    Node[] arr = new Node[k];
+    arr[0] = new Node(1);
+    arr[0].next = new Node(4);
+    arr[0].next.next = new Node(5);
+    arr[1] = new Node(1);
+    arr[1].next = new Node(3);
+    arr[1].next.next = new Node(4);
+    arr[2] = new Node(2);
+    arr[2].next = new Node(6);
+    head = mergeKLists(arr, k - 1);
+    System.out.println("Merged List:");
+    printList(head);
+  }
+}
+/*Output
+Merged List:
+1->1->2->3->4->4->5->6->
+*/
