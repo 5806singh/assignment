@@ -1,0 +1,65 @@
+/*Median of Two Sorted Arrays:
+Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+The overall run time complexity should be O(log(m+n)). */
+
+
+
+public class ArrayMedian{
+    static double medianOfSortedArray(int[] a1, int[] a2,int len1,int len2) 
+    {
+        int mid_Element =0;
+        double median_Element = 0.0;
+        int i=0,j=0,k=0;
+        int sortedArr[] = new int[len1+len2];   
+        while(i<len1 && j<len2){
+        if(a1[i]<a2[j])
+        {
+            sortedArr[k]=a1[i];
+            i++;
+            k++;
+        }
+        else
+        {
+            sortedArr[k]=a2[j];
+            j++;
+            k++;
+        }
+    }
+    while(i<len1)
+    { 
+       sortedArr[k]=a1[i];
+       i++;
+       k++;
+    }
+    while(j<len2)
+    { 
+       sortedArr[k]=a2[j];
+       j++;
+       k++;
+    }
+    mid_Element = sortedArr.length/2;
+    if(sortedArr.length%2==0)
+    {
+        median_Element = (double) (sortedArr[mid_Element] + sortedArr[mid_Element-1])/2;
+    }
+    else
+    {
+        median_Element = sortedArr[mid_Element];
+    }
+    
+    return median_Element;
+    
+}
+public static void main(String[] args)
+{
+	int nums1[]={1,2};
+	int nums2[]={3,4};
+	int m = nums1.length;
+	int n = nums2.length;
+	System.out.println("Median of the two Sorted Arrays:"+medianOfSortedArray(nums1, nums2,m,n));
+}
+}
+
+
+/*Output
+Median of the two Sorted Arrays:2.5*/
