@@ -1,0 +1,98 @@
+/*
+	Convert Roman Numeral To Integer
+*/
+
+import java.io.*;
+import java.util.*;
+
+public class RomanToInteger
+{
+	int value(char r)
+	{
+	    int val;
+		switch(r)
+		{
+		    case 'I': val=1;
+		              return val;
+		    case 'V': val=5;
+		              return val;
+		    case 'X': val=10;
+		              return val;
+		    case 'L': val=50;
+		              return val;
+		    case 'C': val=100;
+		              return val;
+		    case 'D': val=500;
+		              return val;
+		    case 'M': val=1000;
+		              return val;
+		    default : val=-1;
+		              return val;
+		}
+	}
+	int romanToInteger(String str)
+	{
+		int res = 0;
+		for (int i = 0; i < str.length(); i++)
+		{
+			int s1 = value(str.charAt(i));
+			if (i + 1 < str.length())
+			{
+				int s2 = value(str.charAt(i + 1));
+				if (s1 >= s2)
+				{
+					res = res + s1;
+				}
+				else
+				{
+					res = res + s2 - s1;
+					i++;
+				}
+			}
+			else 
+			{
+				res = res + s1;
+			}
+		}
+		return res;
+	}
+	public static void main(String args[])
+	{
+		RomanToInteger ob = new RomanToInteger();
+	    	Scanner sc=new Scanner(System.in);
+		String str;
+		System.out.println("Enter Roman Numeral:");
+		str=sc.next();
+		int result=ob.romanToInteger(str);
+        	int slen=str.length();
+		if(slen>=0 && slen<=15 && result!=-1)
+		{
+		    System.out.println("Roman Numeral\tInteger\n");
+		    System.out.println(str+" \t\t "+ result);
+		}
+		else
+		{
+		    if(slen<=0 || slen>=15)
+		        System.out.println("String to be between 0 and 15");
+		    else
+		        System.out.println("Contains only Specific letters");
+		}
+	}
+}
+
+
+/*OUTPUT
+Enter Roman Numeral:
+M
+Roman Numeral	Integer
+M 		        1000
+
+Enter Roman Numeral:
+K
+Contains only Specific letters
+
+Enter Roman Numeral:
+KLOPHJKLLVVVXZXZ
+String to be between 0 and 15
+
+*/
