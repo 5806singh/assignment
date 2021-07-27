@@ -1,0 +1,76 @@
+/*
+		TRW
+*/
+
+import java.io.*;
+import java.util.*;
+import java.lang.Math;
+class TRW{
+public static int maxWater(int[] arr, int n)
+{
+	int res = 0;
+	for(int i = 1; i < n - 1; i++)
+	{
+		int left = arr[i];
+		for(int j = 0; j < i; j++)
+		{
+			left = Math.max(left, arr[j]);
+		}
+		int right = arr[i];
+		for(int j = i + 1; j < n; j++)
+		{
+			right = Math.max(right, arr[j]);
+		}
+		res += Math.min(left, right) - arr[i];
+	}
+	return res;
+}
+public static void main(String[] args)
+{
+	Scanner sc=new Scanner(System.in);
+	int n;
+	System.out.println("Enter number of elements: ");
+    n=sc.nextInt();
+	int[] heigth=new int[n];
+	if(n==heigth.length && n>=0 && n<=Math.round(Math.pow(10,4)))
+	{
+	    System.out.println("Enter data:");
+	    for(int i=0;i<n;i++)
+	    {
+	        if(heigth[i]<=Math.round(3*(Math.pow(10,5))))
+	        {
+	            heigth[i]=sc.nextInt();
+	        }
+	        else
+	            System.out.println("Check data");
+	            break;
+	    }
+	int maxWater=maxWater(heigth,n);
+	System.out.println("Max Water: "+maxWater);
+	}
+	else
+	{
+	    System.out.println("Check number of elements");
+	}
+
+}
+}
+
+
+
+/*OUTPUT
+Enter number of elements: 
+6
+Enter data:
+4
+2
+0
+3
+2
+5
+Max Water: 9
+
+Enter number of elements: 
+600000
+Check number of elements
+*/
